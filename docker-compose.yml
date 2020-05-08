@@ -1,0 +1,17 @@
+version: '3'
+services:
+
+  flask:
+      container_name: flask
+      image: "flask:test"
+      build:
+        context: ./flask
+      ports:
+      - "9000:9000"
+      volumes:
+      - "./flask:/www"
+      networks:
+      - backend
+networks:
+  backend:
+    driver: bridge
