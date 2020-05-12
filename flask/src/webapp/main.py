@@ -33,13 +33,10 @@ def receiveRes():
     mem = "NA"
     if(res.get('confidence') >= 0.5):
         if(res.get('groupName')=='A'):
-            print('A')
             mem = 'A'
         elif(res.get('groupName')=='B'):
-            print('B')
             mem = 'B'
     else :
-        print("NA")
     socketio.emit('response',{'data': mem},broadcast=True,namespace='/mynamespace' )
     return mem   
     
