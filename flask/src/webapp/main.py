@@ -12,20 +12,6 @@ socketio = SocketIO(app)
 def hello(): 
     return render_template('index.html')
 
-# GET method
-# @app.route('/calculate')
-# def countServer():
-#     client = connectDB()
-#     val = process_list(client)
-#     return val
-
-# @app.route('/result', methods=['POST'])
-# def receiveResult():
-#     value = request.get_json()
-#     print(value.get('confidence'))
-#     emit('response',{'data':value.get('confidence'), 'username':value.get('groupName')},broadcast=True)
-#     return jsonify(value)
-
 @socketio.on('connect', namespace='/mynamespace')
 def connect():
     print ("Connected")
@@ -38,6 +24,12 @@ def disconnect():
 @app.route('/result', methods=['POST'] )
 def receiveRes():
     res = request.get_json()
+    print(res)
+    if(res==None):
+        res = str(request.get_data())
+        res = res[2:-1].split('&')
+        res = {'groupName':res[0][-1:],'confidence':float(res[1][res[1].index('=')+1:])}
+
     mem = "NA"
     if(res.get('confidence') >= 0.5):
         if(res.get('groupName')=='A'):
@@ -56,5 +48,5 @@ def chat_error_handler(e):
     print('An error has occurred: ' + str(e))
 
 
-#if __name__ == '__main__':
-    #socketio.run(app, host="0.0.0.0", port="5005")
+if __name__ == '__main__':
+    socketio.run(app, host="0.0.0.0", port="5005")
