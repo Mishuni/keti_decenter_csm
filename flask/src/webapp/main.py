@@ -36,7 +36,7 @@ def receiveRes():
             mem = 'A'
         elif(res.get('groupName')=='B'):
             mem = 'B'
-    else :
+
     socketio.emit('response',{'data': mem},broadcast=True,namespace='/mynamespace' )
     return mem   
     
