@@ -28,7 +28,11 @@ def receiveRes():
     if(res==None):
         res = str(request.get_data())
         res = res[2:-1].split('&')
-        res = {'groupName':res[0][-1:],'confidence':float(res[1][res[1].index('=')+1:])}
+        if(res[0].find('confidence')>-1):
+            res = {'groupName':res[1][-1:],'confidence':float(res[0][res[0].index('=')+1:])}
+        else:
+            res = {'groupName':res[0][-1:],'confidence':float(res[1][res[1].index('=')+1:])}
+        
 
     mem = "NA"
     if(res.get('confidence') >= 0.5):
