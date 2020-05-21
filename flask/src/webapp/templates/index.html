@@ -79,13 +79,13 @@
                         nextWord = headline.find(newRes).eq(0);
 
                         if(result==='A'){
-                            resTxt.text("YOU NEED TO GO TO ROOM NO.5");
+                            resTxt.html('YOU NEED TO GO TO ROOM <font color="red">NO.5</font>');
                             if(count === 0){
                                 count = 1;
                             }
                         }
                         else if(result==='B'){
-                            resTxt.text("YOU NEED TO GO TO ROOM NO.6");
+                            resTxt.html('YOU NEED TO GO TO ROOM <font color="blue">NO.7</font>');
                             if(count === 0){
                                 count = 1;
                             }
@@ -140,6 +140,16 @@
 </head>
 
 <body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="pre-container">
+            <div class="spinner">
+                <div class="double-bounce1"></div>
+                <div class="double-bounce2"></div>
+            </div>
+        </div>
+    </div>
+    <!-- end Preloader -->
 
     <div class="container-fluid">
         <!-- box header -->
