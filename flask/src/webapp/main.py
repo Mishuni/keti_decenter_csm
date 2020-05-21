@@ -2,7 +2,7 @@
 from flask import Flask,render_template,jsonify, request, session
 import datetime
 from flask_socketio import SocketIO, emit
-#from . import config
+from config import *
 
 app = Flask(__name__)
 app.secret_key = "secret"
@@ -23,8 +23,11 @@ def disconnect():
 
 @app.route('/result', methods=['POST'] )
 def receiveRes():
+
+    #data = {'groupName':'B','confidence':[0.9,0.1]}
+
     res = request.get_json()
-    print(res)
+    #print(res)
     if(res==None):
         res = str(request.get_data())
         res = res[2:-1].split('&')
@@ -32,10 +35,9 @@ def receiveRes():
             res = {'groupName':res[1][-1:],'confidence':float(res[0][res[0].index('=')+1:])}
         else:
             res = {'groupName':res[0][-1:],'confidence':float(res[1][res[1].index('=')+1:])}
-        
 
     mem = "NA"
-    if(res.get('confidence') >= 0.5):
+    if(res.get('confidence') >= RESULT_CONFIG['threshold'] ):
         if(res.get('groupName')=='A'):
             mem = 'A'
         elif(res.get('groupName')=='B'):
