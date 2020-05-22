@@ -439,7 +439,7 @@ h5 {
 }
 
 b i:last-child {
-    color: #1E90FF !important;
+    /* color: #1E90FF !important; */
 }
 
 .box-intro h5 {
