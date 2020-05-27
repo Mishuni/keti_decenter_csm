@@ -24,7 +24,8 @@ while(True):
     data = {"confidence":f,"groupName":group[ran],"result":"True","timeStamp":today}
     headers = {'Content-Type': 'application/json; charset=utf-8'}
     
-    r = requests.post(url, data = json.dumps(data), headers=headers)    
+    #r = requests.post(url, data = json.dumps(data), headers=headers)    
+    r = requests.post(url, data = str(data))
     print(r.text)
     time.sleep(0.2)
 

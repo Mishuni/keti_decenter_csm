@@ -4,8 +4,8 @@ from flask import Flask,render_template,jsonify,request
 from . import config
 from random import randint,random
 
-import datetime,time
-import pytz
+import datetime,time, pytz
+import json
 
 utc=pytz.UTC
 app = Flask(__name__)
@@ -79,6 +79,13 @@ def getResult():
         listB.clear()
     # {"confidence":0.92,"groupName":"A","result":True,"timeStamp":"2020-05-25 10:31:41"}
     res = request.get_json()
+    if(res==None):
+        # b"{'confidence': 0.8485499248985526, 'groupName': 'B', 
+        # 'result': 'True', 'timeStamp': '2020-05-27 04:58:31'}"
+        res = str(request.get_data())
+        res = res[2:-1].replace("'",'"')
+        res = json.loads(res)
+
     date = datetime.datetime.strptime(res["timeStamp"],'%Y-%m-%d %H:%M:%S')
     date = date.replace(tzinfo=utc)
     res["timeStamp"]=date
