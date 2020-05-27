@@ -2,7 +2,7 @@
 
 RESULT_CONFIG={
 
-    'limit':10,
-    'threshold':0.9,
+    'limit':200,
+    'threshold':0.8,
 
 }

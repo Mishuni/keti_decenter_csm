@@ -15,131 +15,15 @@
 
     <!-- main css -->
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
-    <!-- jQuery -->
-    <script src="{{url_for('static', filename='js/jquery-2.1.1.js')}}"></script>
-    <!--  plugins -->
-    <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
-    <script src="{{url_for('static', filename='js/animated-headline.js')}}"></script>
 
-
-    <!--  custom script -->
-    <script src="{{url_for('static', filename='js/custom.js')}}"></script>
 
     <!-- modernizr -->
     <script src="{{ url_for('static', filename='js/modernizr.js') }}"></script>
 
-    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.6/socket.io.min.js"></script>
-
-    <script type="text/javascript">
-    
-        $(document).ready(function(){
-
-            const animationDelay = 2000,
-            // letters effect
-            lettersDelay = 100,
-            // time interval param
-            timeInterval = 2000,
-            showCnt = 2; // timeInterval * showCnt (ms)
-
-            let count = 0;
-            setInterval(function(){ 
-                    console.log(count);
-                    if(count===0){showRes("NA");} 
-                    else{count = 0;} 
-                }, animationDelay);
-
-            let httpRequest;
-            console.log("http://"+document.domain+":"+location.port+"/mynamespace");
-            var socket = io.connect("http://"+document.domain+":"+location.port+"/mynamespace");
-            socket.on('response',function(msg){
-                count = 1;
-                console.log(msg.data);
-                showRes(msg.data);
-            });
-
-
-            function showRes(result){
-                let headline = $('.box-headline');
-                let resTxt = $('.res-text');
-                word = headline.find('.is-visible').eq(0);
-
-                // if the crrunt word is not same with the next word
-                if(!word.hasClass(result)){
-
-                    if( result==='NA'){
-                        // previously, It was an 'A' or 'B'
-                        // In this part, must show a main page regardless of a current result
-                        nextWord = headline.find('.NA').eq(0);
-                        resTxt.text("Ambient intelligence for office environments");
-                        count = 0;
-                    }
-                    else{
-                        newRes = '.'.concat(result);
-                        nextWord = headline.find(newRes).eq(0);
-
-                        if(result==='A'){
-                            resTxt.html('YOU NEED TO GO TO ROOM <font color="red">NO.5</font>');
-                            if(count === 0){
-                                count = 1;
-                            }
-                        }
-                        else if(result==='B'){
-                            resTxt.html('YOU NEED TO GO TO ROOM <font color="blue">NO.7</font>');
-                            if(count === 0){
-                                count = 1;
-                            }
-                        }
-                    }    
-                    // change the intro word
-                    hideWord(word,nextWord);
-
-                }		
-            }
-
-
-            function hideWord($word,$nextWord) {
-
-                if($word.parents('.box-headline').hasClass('letters')) {
-                    let bool = ($word.children('i').length >= $nextWord.children('i').length) ;
-                    hideLetter($word.find('i').eq(0), $word, bool, lettersDelay);
-                    showLetter($nextWord.find('i').eq(0), $nextWord, bool, lettersDelay);
-                    $word.removeClass('is-visible');
-                    $nextWord.addClass('is-visible');
-
-                }
-            }
-
-            function hideLetter($letter, $word, $bool, $duration) {
-                $letter.removeClass('in').addClass('out');
-
-                if(!$letter.is(':last-child')) {
-                    setTimeout(function(){ hideLetter($letter.next(), $word, $bool, $duration); }, $duration);
-                }
-
-            }
-
-            function showLetter($letter, $word, $bool, $duration) {
-                $letter.addClass('in').removeClass('out');
-
-                if(!$letter.is(':last-child')) {
-                    setTimeout(function(){ showLetter($letter.next(), $word, $bool, $duration); }, $duration);
-                } else {
-                    if($word.parents('.box-headline').hasClass('type')) { setTimeout(function(){ $word.parents('.box-words-wrapper').addClass('waiting'); }, 200);}
-                    //if(!$bool) { setTimeout(function(){ hideWord($word) }, animationDelay) }
-                }
-            }
-
-                 
-        });
-
-            
-        
-    </script>
-
 </head>
 
 <body>
+
     <!-- Preloader -->
     <div id="preloader">
         <div class="pre-container">
@@ -156,7 +40,7 @@
         <header class="box-header">
             <div class="box-logo">
                 
-                <a href="/"><img src="{{url_for('static', filename='img/decenterLOGO.png')}}" width="15%" alt="Logo"></a>
+                <a href="/"><img src="{{url_for('static', filename='img/decenterLOGO.png')}}" width="20%" alt="Logo"></a>
             </div>
 
         </header>
@@ -194,7 +78,17 @@
     <a href="#0" class="cd-top"><i class="ion-android-arrow-up"></i></a>
     <!-- end back to top -->
 
-   
+
+
+    <!-- jQuery -->
+    <script src="{{url_for('static', filename='js/jquery-2.1.1.js')}}"></script>
+    <!--  plugins -->
+    <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/animated-headline.js')}}"></script>
+
+
+    <!--  custom script -->
+    <script src="{{url_for('static', filename='js/custom.js')}}"></script>
 
 </body>
 
