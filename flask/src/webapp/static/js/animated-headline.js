@@ -15,8 +15,7 @@ jQuery(document).ready(function($){
 		$words.each(function(){
 			let word = $(this),
 				letters = word.text().split(''),
-				selected = word.hasClass('is-visible');
-			var idx = 0;  
+				selected = word.hasClass('is-visible'); 
 			for (i in letters) {
 				if(selected){
 					if(word.parents('.rotate-2').length > 0) letters[i] = '<em>' + letters[i] + '</em>';
