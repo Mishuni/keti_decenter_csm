@@ -9,27 +9,33 @@ import json
 
 utc=pytz.UTC
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'seceret'
 listA = []
-listB = []
 limit = config.RESULT_CONFIG['limit']
 threshold = config.RESULT_CONFIG['threshold']
 
 def countMaxConf(groupList,standard):
-    maxCon = 0
-    result = "False"
+    maxA = 0
+    resultA = "False"
+    maxB = 0
+    resultB = "False"
 
     for i in range(len(groupList)-1,-1,-1):
         if(groupList[i]["timeStamp"]>=standard):
             print("============TIME=============")
             print(groupList[i]["groupName"],groupList[i]["timeStamp"])
             print("==============================")
-            if(groupList[i]["confidence"]>maxCon):
-                maxCon = groupList[i]["confidence"]
-                result = groupList[i]["result"]
+            if(groupList[i]['groupName']=="A" and groupList[i]["confidence"]>maxA):
+                maxA = groupList[i]["confidence"]
+                resultA = groupList[i]["result"]
+            elif(groupList[i]['groupName']=="B" and groupList[i]["confidence"]>maxB):
+                maxB = groupList[i]["confidence"]
+                resultB = groupList[i]["result"]
+            
             else:
                 break
     
-    return result,maxCon
+    return resultA,maxA,resultB,maxB
 
 
 @app.route('/')
@@ -44,14 +50,11 @@ def getList():
 @app.route('/calculate')
 def countServer():
     global listA
-    global listB
     #standard = datetime.datetime.strptime("2020-05-25 10:31:41",'%Y-%m-%d %H:%M:%S')- datetime.timedelta(seconds = 1)
-    standard = datetime.datetime.now(datetime.timezone.utc)- datetime.timedelta(seconds = 2)
     start = time.time()
-    resultA, maxA = countMaxConf(listA,standard)
-    resultB, maxB = countMaxConf(listB,standard)
-    listA.clear()
-    listB.clear()
+    standard = datetime.datetime.now(datetime.timezone.utc)- datetime.timedelta(seconds = 2)
+    resultA, maxA, resultB, maxB = countMaxConf(listA,standard)
+    #resultB, maxB = countMaxConf(listB,standard)
 
     print("===============RESULT================")
     print("time :", (time.time() - start) * 1000,"ms") 
@@ -73,15 +76,12 @@ def countServer():
 @app.route('/result', methods=['POST'])
 def getResult():
     global listA
-    global listB
-    if(len(listA)>200 or len(listB)>200):
+    if(len(listA)>200):
+
         listA.clear()
-        listB.clear()
-    # {"confidence":0.92,"groupName":"A","result":True,"timeStamp":"2020-05-25 10:31:41"}
+
     res = request.get_json()
     if(res==None):
-        # b"{'confidence': 0.8485499248985526, 'groupName': 'B', 
-        # 'result': 'True', 'timeStamp': '2020-05-27 04:58:31'}"
         res = str(request.get_data())
         res = res[2:-1].replace("'",'"')
         res = json.loads(res)
@@ -89,11 +89,8 @@ def getResult():
     date = datetime.datetime.strptime(res["timeStamp"],'%Y-%m-%d %H:%M:%S')
     date = date.replace(tzinfo=utc)
     res["timeStamp"]=date
-    if(res["groupName"]=="A"):
-        listA.append(res)
-    elif(res["groupName"]=="B"):
-        listB.append(res)
-    return res
+    listA.append(res)
 
-    
+    return res
+  
 #app.run()

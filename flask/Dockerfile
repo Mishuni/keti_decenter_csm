@@ -9,8 +9,7 @@ ADD . $APP
 WORKDIR $APP
 
 RUN python -m pip install --upgrade pip 
-RUN pip3 install Flask uwsgi influxdb
+RUN pip3 install Flask uwsgi pytz
 
-RUN apt-get update && apt-get install vim -y
 # run uWSGI with the ini file
 CMD uwsgi uwsgi.ini

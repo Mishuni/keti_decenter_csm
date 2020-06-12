@@ -6,7 +6,7 @@ jQuery(document).ready(function($){
 		lettersDelay = 100,
 		// time interval param
 		timeInterval = 1000,
-		showCnt = 2; // timeInterval * showCnt (ms)
+		showCnt = 1; // timeInterval * showCnt (ms)
 
 	let count = 0;
 	let httpRequest;

@@ -8,7 +8,7 @@ import datetime
 # http://ptsv2.com/t/ucjg5-158907602/post
 # "http://127.0.0.1:9000"+"/result"
 # "http://182.252.132.39:9000"+"/result"
-url = "http://localhost"+"/result"
+url = "http://localhost:9000"+"/result"
 # http://localhost/result
 
 
