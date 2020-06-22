@@ -22,9 +22,9 @@ def countMaxConf(groupList,standard):
 
     for i in range(len(groupList)-1,-1,-1):
         if(groupList[i]["timeStamp"]>=standard):
-            print("============TIME=============")
-            print(groupList[i]["groupName"],groupList[i]["timeStamp"])
-            print("==============================")
+            # print("============TIME=============")
+            # print(groupList[i]["groupName"],groupList[i]["timeStamp"])
+            # print("==============================")
             if(groupList[i]['groupName']=="A" and groupList[i]["confidence"]>maxA):
                 maxA = groupList[i]["confidence"]
                 resultA = groupList[i]["result"]
@@ -51,17 +51,17 @@ def getList():
 def countServer():
     global listA
     #standard = datetime.datetime.strptime("2020-05-25 10:31:41",'%Y-%m-%d %H:%M:%S')- datetime.timedelta(seconds = 1)
-    start = time.time()
+    # start = time.time()
     standard = datetime.datetime.now(datetime.timezone.utc)- datetime.timedelta(seconds = 2)
     resultA, maxA, resultB, maxB = countMaxConf(listA,standard)
     #resultB, maxB = countMaxConf(listB,standard)
 
-    print("===============RESULT================")
-    print("time :", (time.time() - start) * 1000,"ms") 
-    print("NOW:",standard)
-    print("maxA:",resultA,maxA)
-    print("maxB:",resultB,maxB)
-    print("=====================================")
+    # print("===============RESULT================")
+    # print("time :", (time.time() - start) * 1000,"ms") 
+    # print("NOW:",standard)
+    # print("maxA:",resultA,maxA)
+    # print("maxB:",resultB,maxB)
+    # print("=====================================")
     
     if(resultA=="True" and maxA > threshold and resultB=="True" and maxB > threshold):
         if(maxA>=maxB): return "A"
@@ -85,7 +85,7 @@ def getResult():
         res = str(request.get_data())
         res = res[2:-1].replace("'",'"')
         res = json.loads(res)
-
+    res["confidence"]=float(res["confidence"])
     date = datetime.datetime.strptime(res["timeStamp"],'%Y-%m-%d %H:%M:%S')
     date = date.replace(tzinfo=utc)
     res["timeStamp"]=date
