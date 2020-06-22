@@ -7,7 +7,7 @@ services:
       build:
         context: ./flask
       ports:
-      - "5000:5000"
+      - "5010:5000"
       volumes:
       - "./flask:/www"
       networks:
@@ -21,7 +21,7 @@ services:
       volumes:
       - "./nginx:/etc/nginx/conf.d"
       ports:
-       - "80:80"
+       - "9000:80"
       networks:
        - backend
       depends_on:
