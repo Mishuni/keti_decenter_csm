@@ -48,7 +48,6 @@ jQuery(document).ready(function($){
 	}
 
 	function makeRequest() {
-		console.log(count);
 		if(count>0){
 
 			if(count===showCnt){
@@ -81,7 +80,6 @@ jQuery(document).ready(function($){
 
 				if (httpRequest.status === 200) {
 					result = httpRequest.responseText;
-					console.log(result)
 					word = headline.find('.is-visible').eq(0);
 
 					// if the crrunt word is not same with the next word
@@ -112,6 +110,7 @@ jQuery(document).ready(function($){
 							}
 						}
 						// change the intro word
+						console.log(result);
 						hideWord(word,nextWord);
 
 					}
