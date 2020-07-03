@@ -25,6 +25,8 @@ def countMaxConf(groupList,standard):
             # print("============TIME=============")
             # print(groupList[i]["groupName"],groupList[i]["timeStamp"])
             # print("==============================")
+            if(groupList[i]["result"]=="False"):
+                groupList[i]["confidence"]=1-groupList[i]["confidence"]
             if(groupList[i]['groupName']=="A" and groupList[i]["confidence"]>maxA):
                 maxA = groupList[i]["confidence"]
                 resultA = groupList[i]["result"]
