@@ -4,7 +4,7 @@ from flask import Flask,render_template,jsonify,request
 from . import config
 from random import randint,random
 
-import datetime,time, pytz
+import datetime,time, pytz, copy
 import json
 
 utc=pytz.UTC
@@ -15,27 +15,30 @@ limit = config.RESULT_CONFIG['limit']
 threshold = config.RESULT_CONFIG['threshold']
 
 def countMaxConf(groupList,standard):
+    groupList_copy = copy.deepcopy(groupList)
     maxA = 0
     resultA = "False"
     maxB = 0
     resultB = "False"
 
-    for i in range(len(groupList)-1,-1,-1):
-        if(groupList[i]["timeStamp"]>=standard):
-            # print("============TIME=============")
-            # print(groupList[i]["groupName"],groupList[i]["timeStamp"])
-            # print("==============================")
-            if(groupList[i]["result"]=="False"):
-                groupList[i]["confidence"]=1-groupList[i]["confidence"]
-            if(groupList[i]['groupName']=="A" and groupList[i]["confidence"]>maxA):
-                maxA = groupList[i]["confidence"]
-                resultA = groupList[i]["result"]
-            elif(groupList[i]['groupName']=="B" and groupList[i]["confidence"]>maxB):
-                maxB = groupList[i]["confidence"]
-                resultB = groupList[i]["result"]
+    for i in range(len(groupList_copy)-1,-1,-1):
+        if(groupList_copy[i]["timeStamp"]>=standard):
             
-            else:
-                break
+            if(groupList_copy[i]["result"]=="False"):
+                # print("Reverse",groupList_copy[i]["confidence"])
+                groupList_copy[i]["confidence"]=1-groupList_copy[i]["confidence"]
+            # print("============TIME CONF=============")
+            # print(groupList_copy[i]["groupName"],groupList_copy[i]["result"],groupList_copy[i]["timeStamp"],groupList_copy[i]["confidence"])
+            # print("==============================")
+            if(groupList_copy[i]['groupName']=="A" and groupList_copy[i]["confidence"]>maxA):
+                maxA = groupList_copy[i]["confidence"]
+                resultA = groupList_copy[i]["result"]
+            elif(groupList_copy[i]['groupName']=="B" and groupList_copy[i]["confidence"]>maxB):
+                maxB = groupList_copy[i]["confidence"]
+                resultB = groupList_copy[i]["result"]
+            
+        else:
+            break
     
     return resultA,maxA,resultB,maxB
 
