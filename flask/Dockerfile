@@ -7,8 +7,8 @@ RUN mkdir $APP
 ADD . $APP
 WORKDIR $APP
 
-RUN python -m pip install --upgrade pip 
-RUN pip3 install Flask uwsgi pytz
+RUN python3 -m pip install --upgrade pip
+RUN pip3 install -r requirements.txt
 
 # run uWSGI with the ini file
 CMD uwsgi uwsgi.ini

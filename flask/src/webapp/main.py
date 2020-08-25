@@ -1,8 +1,8 @@
 # web (application)
 from flask import Flask,render_template,jsonify,request
 # from .logic import process_list, connectDB
-#from . import config
-import config
+from . import config
+#import config
 from random import randint,random
 
 import datetime,time, pytz, copy
