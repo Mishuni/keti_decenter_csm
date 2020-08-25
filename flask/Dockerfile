@@ -1,6 +1,5 @@
 FROM python:3.6
 
-MAINTAINER Miseon YU <mmms543.keti@gmail.com>
 EXPOSE 5000
 ENV APP /www
 
