@@ -1,11 +1,18 @@
 # web (application)
 from flask import Flask,render_template,jsonify,request
 # from .logic import process_list, connectDB
-from . import config
+#from . import config
+import config
 from random import randint,random
 
 import datetime,time, pytz, copy
 import json
+import logging
+
+# 로그 생성
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+stream_handler = logging.StreamHandler()
 
 utc=pytz.UTC
 app = Flask(__name__)
@@ -97,5 +104,5 @@ def getResult():
     listA.append(res)
 
     return res
-  
-#app.run()
+if __name__ == '__main__':  
+    app.run(host="0.0.0.0",port=5000, debug=True)

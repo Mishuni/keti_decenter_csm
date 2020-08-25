@@ -81,7 +81,7 @@ jQuery(document).ready(function($){
 				if (httpRequest.status === 200) {
 					result = httpRequest.responseText;
 					word = headline.find('.is-visible').eq(0);
-
+					console.log(result)
 					// if the crrunt word is not same with the next word
 					if(!word.hasClass(result)){
 

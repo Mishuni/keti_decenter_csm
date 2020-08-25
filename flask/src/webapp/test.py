@@ -8,7 +8,7 @@ import datetime
 # http://ptsv2.com/t/ucjg5-158907602/post
 # "http://127.0.0.1:9000"+"/result"
 # "http://182.252.132.39:9000"+"/result"
-url = "http://localhost:9000"+"/result"
+url = "http://localhost:5000"+"/result"
 # http://localhost/result
 
 
@@ -21,7 +21,8 @@ while(True):
     f = random.uniform(0.7, 0.9) 
     today = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
     print(today)
-    data = {"confidence":f,"groupName":group[ran],"result":"True","timeStamp":today}
+    t = random.uniform(0.8,0.9) 
+    data = {"confidence":str(f),"groupName":group[ran],"result":"True","timeStamp":today,"processingTime":str(t)}
     headers = {'Content-Type': 'application/json; charset=utf-8'}
     
     #r = requests.post(url, data = json.dumps(data), headers=headers)    
