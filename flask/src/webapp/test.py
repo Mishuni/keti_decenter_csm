@@ -3,12 +3,18 @@ import requests, json
 import random
 import time
 import datetime
+import datetime as pydatetime
+def get_now():
+    return pydatetime.datetime.now()
+
+def get_now_timestamp():
+    return get_now().timestamp()
 
 ## application/json 으로 보내기
 # http://ptsv2.com/t/ucjg5-158907602/post
 # "http://127.0.0.1:9000"+"/result"
 # "http://182.252.132.39:9000"+"/result"
-url = "http://localhost:5000"+"/result"
+url = "http://localhost:9000"+"/result"
 # http://localhost/result
 
 
@@ -19,8 +25,9 @@ group = ["A","B"]
 while(True):
     ran = random.randrange(2)
     f = random.uniform(0.7, 0.9) 
-    today = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
-    print(today)
+    #today = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
+    today = get_now_timestamp()
+    #print(today)
     t = random.uniform(0.8,0.9) 
     data = {"confidence":str(f),"groupName":group[ran],"result":"True","timeStamp":today,"processingTime":str(t)}
     headers = {'Content-Type': 'application/json; charset=utf-8'}
@@ -28,7 +35,7 @@ while(True):
     #r = requests.post(url, data = json.dumps(data), headers=headers)    
     r = requests.post(url, data = str(data))
     print(r.text)
-    time.sleep(0.2)
+    time.sleep(0.01)
 
 
 ## 그냥 몸체 통으로 보내기

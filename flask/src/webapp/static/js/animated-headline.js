@@ -20,7 +20,7 @@ jQuery(document).ready(function($){
 		singleLetters($('.box-headline.letters').find('b'));
 		//initialise headline animation
 		//animateHeadline($('.box-headline'));
-		intervalReq = setInterval(makeRequest,timeInterval);
+		intervalReq = setInterval(alertContents,timeInterval);
 	}
 
 	function singleLetters($words) {
@@ -47,87 +47,82 @@ jQuery(document).ready(function($){
 		});
 	}
 
-	function makeRequest() {
-		if(count>0){
+	function decideFinal(){
+		// console.log("A",listA)
+		// console.log("B",listB)
+		var resultA = (listA[0]>listA[2])? true : (listA[0]==listA[2])? (listA[1]>listA[3]) ? true : false : false
+		var resultB = (listB[0]>listB[2])? true : (listB[0]==listB[2])? (listB[1]>listB[3]) ? true : false : false
+		if(!resultA && !resultB){
+			return "NA"
+		}
+		else if(resultA && resultB){
+			var a = listA[1]/listA[0]
+			var b = listB[1]/listB[0]
+			console.log("A::",a)
+			console.log("B::",b)
 
-			if(count===showCnt){
-				count = -1;
+			if(a >= b){
+				return "A"
 			}
 			else{
-				count = count + 1;
+				return "B"
 			}
-		}
-		else{
-			httpRequest = new XMLHttpRequest();
-			httpRequest.onreadystatechange = alertContents;
-			if(!httpRequest) {
-				alert("Can't make XMLHTTP Instance");
-				return false;
-			}
-
-			httpRequest.open('GET', 'calculate');
-			httpRequest.send();
+		}else{
+			return (resultA)?"A":"B"
 		}
 	}
 
 	function alertContents() {
+		if(count==1){
+			count=0
+			console.log("Wait")
+			return;
+		}
 		let headline = $('.box-headline');
 		let result;
 		let word,nextWord;
 		let newRes;
 		try {
-			if (httpRequest.readyState === XMLHttpRequest.DONE) {
-
-				if (httpRequest.status === 200) {
-					result = httpRequest.responseText;
-					word = headline.find('.is-visible').eq(0);
-					console.log(result)
-					// if the crrunt word is not same with the next word
-					if(!word.hasClass(result)){
-
-						if(count===-1 || result==='NA'){
-							// previously, It was an 'A' or 'B'
-							// In this part, must show a main page regardless of a current result
-							nextWord = headline.find('.NA').eq(0);
-							resTxt.text("Ambient intelligence for office environments");
-							count = 0;
-						}
-						else{
-							newRes = '.'.concat(result);
-							nextWord = headline.find(newRes).eq(0);
-
-							if(result==='A'){
-								resTxt.text("YOU NEED TO GO TO ROOM NO.5");
-								if(count === 0){
-									count = 1;
-								}
-							}
-							else if(result==='B'){
-								resTxt.text("YOU NEED TO GO TO ROOM NO.6");
-								if(count === 0){
-									count = 1;
-								}
-							}
-						}
-						// change the intro word
-						console.log(result);
-						hideWord(word,nextWord);
-
+				result = decideFinal();
+				listA = [0,0,0,0]
+				listB = [0,0,0,0]
+				word = headline.find('.is-visible').eq(0);
+				console.log(result)
+				// if the crrunt word is not same with the next word
+				if(!word.hasClass(result)){
+					count=1
+					if(result==='NA'){
+						// previously, It was an 'A' or 'B'
+						// In this part, must show a main page regardless of a current result
+						nextWord = headline.find('.NA').eq(0);
+						resTxt.text("Ambient intelligence for office environments");
 					}
+					else{
+						newRes = '.'.concat(result);
+						nextWord = headline.find(newRes).eq(0);
+
+						if(result==='A'){
+							resTxt.text("YOU NEED TO GO TO ROOM NO.5");
+						}
+						else if(result==='B'){
+							resTxt.text("YOU NEED TO GO TO ROOM NO.6");
+						}
+					}
+					// change the intro word
+					hideWord(word,nextWord);
 
 				}
-				else {
-					let word = headline.find('.is-visible').eq(0);
-					if(!word.hasClass('NA')){
-						//if not 'NA', chane to the 'NA'
-						let nextWord = headline.find(".NA").eq(0);
-						hideWord(word,nextWord);
-					}
+				// else {
+				// 	let word = headline.find('.is-visible').eq(0);
+				// 	if(!word.hasClass('NA')){
+				// 		//if not 'NA', chane to the 'NA'
+				// 		let nextWord = headline.find(".NA").eq(0);
+				// 		hideWord(word,nextWord);
+				// }
 
 					//hideWord( headline.find('.is-visible').eq(0) );
 					//alert("There was a problem with the request.");
-				}
-			}
+				//}
 		}
 		catch(e){
 			alert('Caught Exception: ' + e.description);

@@ -1,3 +1,8 @@
+var socket = io.connect("http://"+document.domain+":"+location.port+"/socket.io/mynamespace");
+// [True cnt, True conf, False cnt, False conf]
+var listA = [0,0,0,0]
+var listB = [0,0,0,0]
+
 $(window).load(function () {
 
     // preloader
@@ -6,13 +11,6 @@ $(window).load(function () {
     $('body').delay(550).css({
         'overflow': 'visible'
     });
-
-
-    //  isotope
-    // var $container = $('.portfolio_container');
-    // $container.isotope({
-    //     filter: '*',
-    // });
 
     $('.portfolio_filter a').click(function () {
         $('.portfolio_filter .active').removeClass('active');
@@ -58,6 +56,27 @@ $(window).load(function () {
     $(".input-contact input, .textarea-contact textarea").blur(function () {
         if ($(this).val() === "") {
             $(this).next("span").removeClass("active");
+        }
+    });
+
+    /* Socket */
+    socket.on('responseA', function(data) {
+        if(data["result"]=="True"){
+            listA[0]+=1
+            listA[1]+=data["confidence"]
+        }else{
+            listA[2]+=1
+            listA[3]+=(1-data["confidence"])
+        }
+    });
+
+    socket.on('responseB', function(data) {
+        if(data["result"]=="True"){
+            listB[0]+=1
+            listB[1]+=data["confidence"]
+        }else{
+            listB[2]+=1
+            listB[3]+=(1-data["confidence"])
         }
     });
 });
