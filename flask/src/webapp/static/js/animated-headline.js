@@ -73,8 +73,8 @@ jQuery(document).ready(function($){
 	}
 
 	function alertContents() {
-		if(count==1){
-			count=0
+		if(count>0){
+			count=count-1
 			console.log("Wait")
 			return;
 		}
@@ -90,14 +90,15 @@ jQuery(document).ready(function($){
 				console.log(result)
 				// if the crrunt word is not same with the next word
 				if(!word.hasClass(result)){
-					count=1
+					
 					if(result==='NA'){
 						// previously, It was an 'A' or 'B'
 						// In this part, must show a main page regardless of a current result
+						count=1
 						nextWord = headline.find('.NA').eq(0);
-						resTxt.text("Ambient intelligence for office environments");
+						resTxt.text("Ambient intelligence<br>for office environments");
 					}
-					else{
+					else{	count=10
 						newRes = '.'.concat(result);
 						nextWord = headline.find(newRes).eq(0);
 
