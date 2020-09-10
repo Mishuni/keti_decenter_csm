@@ -13,10 +13,10 @@
 - influxdb
 
 ## How to install
----
 #### 1. install docker (for Linux) && docker-compose
 
 1-1. docker 
+
 ```sh
 curl -fsSL get.docker.com -o get-docker.sh
 sh get-docker.sh
@@ -50,14 +50,14 @@ docker-compose version 1.17.1, build 6d101fb
 $ git clone 
    ```
 
-#### 3. run the **docker-compose.yml** in uc4_csm folder
+#### 3. run the **docker-compose.yml** in the folder
 
    ```sh
-$ cd uc4_csm
+$ cd keti_decenter
 $ docker-compose up
    ```
 
-   After running this command, you can see a list of three running containers on docker
+   After running this command, you can see a list of 2 running containers on docker
 
    ```sh
 $ docker ps
@@ -68,7 +68,7 @@ $ docker ps
    
    ```
 
-#### 4. run a random result generator named 'test.py' (for test)
+#### 4. run a random dump data generator named 'test.py' (for test)
 
    open a new terminal
 
@@ -76,21 +76,14 @@ $ docker ps
 $ python test.py
 ```
 
-
-
-
 #### 5. open the url 'http://localhost/'
 
    you can see the main page of SCM
 
 
 
-* nginx stop
+## Images
 
-  ```sh
-  $ sudo systemctl stop nginx
-  ```
 
-  
 
-   
+<img src=".\images\ui_final_2.png" alt="ui_final_2" style="zoom:20%;" />
