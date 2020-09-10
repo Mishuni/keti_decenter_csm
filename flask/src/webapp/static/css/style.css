@@ -450,7 +450,8 @@ b i:last-child {
 }
 
 .res-text{
-    font-size: 70px;
+    font-size: 80px;
+   /* text-shadow: 5px 5px 0 #EB452B;*/
 }
 
 
@@ -532,7 +533,7 @@ b i:last-child {
 /* text rotate */
 
 .box-headline {
-    font-size: 220px;
+    font-size: 240px;
     line-height: 1.0;
 }
 

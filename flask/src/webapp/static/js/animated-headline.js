@@ -6,9 +6,9 @@ jQuery(document).ready(function($){
 		lettersDelay = 100,
 		// time interval param
 		timeInterval = 1000,
-		showCnt = 1; // timeInterval * showCnt (ms)
+		showCnt = 1, showTime = 5; // timeInterval * showCnt (ms)
 
-	let count = 0;
+	count = 0;
 	let httpRequest;
 	let resTxt = $('.res-text');
 
@@ -34,8 +34,8 @@ jQuery(document).ready(function($){
 					letters[i] = '<i class="in">' + letters[i] + '</i>';
 				}
 				else{
-					if(word.parents('.rotate-2').length > 0) letters[i] = (letters[i]=='A')?'<em><font color="red">' + letters[i] + '</font></em>'
-																			:(letters[i]=='B')?'<em><font color="blue">' + letters[i] + '</font></em>'
+					if(word.parents('.rotate-2').length > 0) letters[i] = (i==0 && letters[0]=='K')?'<em><font style="font-size:300px; color:red;">'+ letters[i] + '</font></em>':(i==0 && letters[0]=='S')?'<em><font style="font-size:300px; color:blue;">'+ letters[i] + '</font></em>':(letters[i]=='I')?'<em><font>' + letters[i] + '</font></em>'
+																			:(letters[i]=='U')?'<em><font>' + letters[i] + '</font></em>'
 																			:'<em>' + letters[i] + '</em>';
 					letters[i] = '<i>' + letters[i] + '</i>';
 				}
@@ -48,8 +48,8 @@ jQuery(document).ready(function($){
 	}
 
 	function decideFinal(){
-		// console.log("A",listA)
-		// console.log("B",listB)
+		//console.log("A",listA)
+		//console.log("B",listB)
 		var resultA = (listA[0]>listA[2])? true : (listA[0]==listA[2])? (listA[1]>listA[3]) ? true : false : false
 		var resultB = (listB[0]>listB[2])? true : (listB[0]==listB[2])? (listB[1]>listB[3]) ? true : false : false
 		if(!resultA && !resultB){
@@ -96,17 +96,17 @@ jQuery(document).ready(function($){
 						// In this part, must show a main page regardless of a current result
 						count=1
 						nextWord = headline.find('.NA').eq(0);
-						resTxt.text("Ambient intelligence<br>for office environments");
+						resTxt.html("Ambient intelligence<br>for office environments");
 					}
-					else{	count=10
+					else{	count=showTime
 						newRes = '.'.concat(result);
 						nextWord = headline.find(newRes).eq(0);
 
 						if(result==='A'){
-							resTxt.text("YOU NEED TO GO TO ROOM NO.5");
+							resTxt.html("PLEASE, GO TO ROOM <font style=\"color:red;\">NO.5</font>");
 						}
 						else if(result==='B'){
-							resTxt.text("YOU NEED TO GO TO ROOM NO.6");
+							resTxt.html("PLEASE, GO TO ROOM <font style=\"color:blue\">NO.7</font>");
 						}
 					}
 					// change the intro word

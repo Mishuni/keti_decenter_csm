@@ -2,7 +2,7 @@ var socket = io.connect("http://"+document.domain+":"+location.port+"/socket.io/
 // [True cnt, True conf, False cnt, False conf]
 var listA = [0,0,0,0]
 var listB = [0,0,0,0]
-
+var count = 0 
 $(window).load(function () {
 
     // preloader
@@ -61,6 +61,9 @@ $(window).load(function () {
 
     /* Socket */
     socket.on('responseA', function(data) {
+	if(count !=0){
+		return;
+	}
         if(data["result"]=="True"){
             listA[0]+=1
             listA[1]+=data["confidence"]
@@ -71,7 +74,10 @@ $(window).load(function () {
     });
 
     socket.on('responseB', function(data) {
-        if(data["result"]=="True"){
+        if(count!=0){
+		return;
+	}
+	if( data["result"]=="True"){
             listB[0]+=1
             listB[1]+=data["confidence"]
         }else{
