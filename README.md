@@ -53,7 +53,7 @@ $ git clone (git url)
 #### 3. run the **docker-compose.yml** in the folder
 
    ```sh
-$ cd keti_decenter
+$ cd keti_decenter_csm
 $ docker-compose up
    ```
 
@@ -73,7 +73,7 @@ $ docker ps
    open a new terminal
 
 ```sh
-$ cd ./keti_decenter/flask/src
+$ cd ./keti_decenter_csm/flask/src
 $ python test.py
 ```
 
