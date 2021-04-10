@@ -47,7 +47,7 @@ docker-compose version 1.17.1, build 6d101fb
 #### 2. clone this folder
 
    ```sh
-$ git clone 
+$ git clone (git url)
    ```
 
 #### 3. run the **docker-compose.yml** in the folder
@@ -68,15 +68,16 @@ $ docker ps
    
    ```
 
-#### 4. run a random dump data generator named 'test.py' (for test)
+#### 4. run a random dump data generator named 'test.py' (only for test)
 
    open a new terminal
 
 ```sh
+$ cd ./keti_decenter/flask/src
 $ python test.py
 ```
 
-#### 5. open the url 'http://localhost/'
+#### 5. open the url 'http://localhost:9000'
 
    you can see the main page of SCM
 
