@@ -79,7 +79,7 @@ $ python test.py
 
 #### 5. open the url 'http://localhost:9000'
 
-   you can see the main page of SCM
+   you can see the main page of CSM
 
 
 
