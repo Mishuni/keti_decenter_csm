@@ -1,5 +1,5 @@
 Flask==1.1.2
 pytz==2020.1
 uWSGI==2.0.19.1
-eventlet==0.25.2
+eventlet>=0.31.0
 Flask-SocketIO==4.3.0
